@@ -477,7 +477,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                       </div>
                     </div>
                   );
-                });
+                })
               } catch (error) {
                 console.error('Error rendering analyst signals:', error);
                 return (
@@ -514,9 +514,142 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
               </button>
             </div>
             <div className="p-5">
-              <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
-                {selectedAnalyst.reasoning || "No detailed reasoning available."}
-              </div>
+              {(selectedAnalyst.analyst === "Fundamentals Agent" || selectedAnalyst.analyst === "Valuation Agent") && typeof selectedAnalyst.reasoning === 'string' ? (
+                <div className="space-y-4">
+                  {(() => {
+                    try {
+                      // Parse the reasoning JSON if it's a string
+                      const reasoningObj = JSON.parse(selectedAnalyst.reasoning);
+                      
+                      // Define signal type colors and icons
+                      const getSignalDisplay = (signal: string) => {
+                        const normalizedSignal = signal.toLowerCase();
+                        if (normalizedSignal === 'bullish') {
+                          return {
+                            bg: 'bg-emerald-50 dark:bg-emerald-900/20',
+                            border: 'border-emerald-200 dark:border-emerald-800/30',
+                            text: 'text-emerald-700 dark:text-emerald-400',
+                            icon: (
+                              <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clipRule="evenodd" />
+                              </svg>
+                            )
+                          };
+                        } else if (normalizedSignal === 'bearish') {
+                          return {
+                            bg: 'bg-red-50 dark:bg-red-900/20',
+                            border: 'border-red-200 dark:border-red-800/30',
+                            text: 'text-red-700 dark:text-red-400',
+                            icon: (
+                              <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M12 13a1 1 0 100 2h5a1 1 0 001-1V9a1 1 0 10-2 0v3.586l-4.293-4.293a1 1 0 00-1.414 1.414l5 5a1 1 0 001.414 0L11 9.414 14.586 13H12z" clipRule="evenodd" />
+                              </svg>
+                            )
+                          };
+                        } else {
+                          return {
+                            bg: 'bg-blue-50 dark:bg-blue-900/20',
+                            border: 'border-blue-200 dark:border-blue-800/30',
+                            text: 'text-blue-700 dark:text-blue-400',
+                            icon: (
+                              <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clipRule="evenodd" />
+                              </svg>
+                            )
+                          };
+                        }
+                      };
+                      
+                      // Format signal name for display
+                      const formatSignalName = (name: string) => {
+                        return name.split('_').map(word => 
+                          word.charAt(0).toUpperCase() + word.slice(1)
+                        ).join(' ').replace('Signal', '').replace('Analysis', '');
+                      };
+                      
+                      // For valuation agent, customize how we display the details
+                      const formatDetails = (details: string, isValuationAgent: boolean) => {
+                        if (!isValuationAgent) {
+                          // Standard display for fundamentals agent
+                          return details.split(', ').map((detail: string, i: number) => (
+                            <div key={i} className="flex items-center justify-between">
+                              <span>{detail.split(': ')[0]}:</span>
+                              <span className="font-medium">{detail.split(': ')[1]}</span>
+                            </div>
+                          ));
+                        } else {
+                          // Enhanced display for valuation agent with gap highlighting
+                          return details.split(', ').map((detail: string, i: number) => {
+                            const [label, value] = detail.split(': ');
+                            
+                            // Add special styling for the Gap metric
+                            if (label === 'Gap') {
+                              const gapValue = parseFloat(value.replace('%', ''));
+                              const gapColor = gapValue >= 0 
+                                ? 'text-emerald-600 dark:text-emerald-400' 
+                                : 'text-red-600 dark:text-red-400';
+                              
+                              return (
+                                <div key={i} className="flex items-center justify-between font-medium">
+                                  <span>{label}:</span>
+                                  <span className={gapColor}>{value}</span>
+                                </div>
+                              );
+                            }
+                            
+                            return (
+                              <div key={i} className="flex items-center justify-between">
+                                <span>{label}:</span>
+                                <span className="font-medium">{value}</span>
+                              </div>
+                            );
+                          });
+                        }
+                      };
+                      
+                      const isValuationAgent = selectedAnalyst.analyst === "Valuation Agent";
+                      
+                      return (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {Object.entries(reasoningObj).map(([key, value]: [string, any]) => {
+                            const display = getSignalDisplay(value.signal);
+                            return (
+                              <div 
+                                key={key} 
+                                className={`p-4 rounded-lg border ${display.border} ${display.bg}`}
+                              >
+                                <div className="flex items-center mb-2">
+                                  <div className={`flex-shrink-0 mr-2 ${display.text}`}>
+                                    {display.icon}
+                                  </div>
+                                  <h4 className="font-medium text-gray-800 dark:text-white">
+                                    {formatSignalName(key)}
+                                  </h4>
+                                  <span className={`ml-auto text-sm font-medium capitalize ${display.text}`}>
+                                    {value.signal}
+                                  </span>
+                                </div>
+                                <div className="text-sm text-gray-600 dark:text-gray-300">
+                                  {formatDetails(value.details, isValuationAgent)}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    } catch (error) {
+                      console.error("Error parsing agent data:", error);
+                      return <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
+                        {selectedAnalyst.reasoning || "No detailed reasoning available."}
+                      </div>
+                    }
+                  })()}
+                </div>
+              ) : (
+                <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
+                  {selectedAnalyst.reasoning || "No detailed reasoning available."}
+                </div>
+              )}
             </div>
             <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
               <button

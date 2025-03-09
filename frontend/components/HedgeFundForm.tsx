@@ -235,27 +235,7 @@ const HedgeFundForm: React.FC = () => {
                 )}
               </div>
             </div>
-            
-            {/* Analysis Options Card */}
-            <div className="perplexity-card dark:bg-gray-800 dark:border-gray-700">
-              <h3 className="text-sm font-medium text-slate-700 mb-3 dark:text-gray-300">Analysis Options</h3>
-              
-              <div className="space-y-4">
-                {/* Show Reasoning */}
-                <div className="flex items-center">
-                  <input
-                    id="showReasoning"
-                    type="checkbox"
-                    checked={showReasoning}
-                    onChange={(e) => setShowReasoning(e.target.checked)}
-                    className="h-4 w-4 text-blue-500 focus:ring-blue-300 border-slate-300 rounded dark:border-gray-600"
-                  />
-                  <label htmlFor="showReasoning" className="ml-2 block text-sm text-slate-700 dark:text-gray-300">
-                    Show detailed reasoning from analysts
-                  </label>
-                </div>
-              </div>
-            </div>
+          
             
             {/* Analyst Selection */}
             <AnalystSelect
@@ -270,7 +250,7 @@ const HedgeFundForm: React.FC = () => {
                 onChange={setModelName}
               />
             </div>
-            
+              
             {/* Submit Button */}
             <button
               type="submit"
