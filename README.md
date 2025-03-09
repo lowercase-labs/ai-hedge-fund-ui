@@ -1,12 +1,11 @@
 # AI Hedge Fund
 
-A modern, AI-powered platform for financial analysis and simulated trading decisions. This platform leverages multiple AI analysts to provide comprehensive stock analysis and trading recommendations.
+This is built on top of [![Twitter Follow](https://img.shields.io/twitter/follow/virattt?style=social)](https://twitter.com/virattt)'s [AI Hedge Fund](https://github.com/virattt/ai-hedge-fund?tab=readme-ov-file)
 
 ![AI Hedge Fund Screenshot](https://github.com/user-attachments/assets/16509cc2-4b64-4c67-8de6-00d224893d58)
 
 **Note**: This system simulates trading decisions and does not perform actual trades.
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/virattt?style=social)](https://twitter.com/virattt)
 
 ## Features
 
@@ -48,7 +47,7 @@ By using this software, you agree to use it solely for learning purposes.
 
 Clone the repository:
 ```bash
-git clone https://github.com/virattt/ai-hedge-fund.git
+git clone https://github.com/sritampatnaik/ai-hedge-fund-ui.git
 cd ai-hedge-fund
 ```
 
