@@ -1,4 +1,4 @@
-# AI Hedge Fund
+# AI Hedge Fund UI
 
 This is built on top of [AI Hedge Fund](https://github.com/virattt/ai-hedge-fund?tab=readme-ov-file)
 
