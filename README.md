@@ -1,6 +1,8 @@
 # AI Hedge Fund
 
-This is built on top of [![Twitter Follow](https://img.shields.io/twitter/follow/virattt?style=social)](https://twitter.com/virattt)'s [AI Hedge Fund](https://github.com/virattt/ai-hedge-fund?tab=readme-ov-file)
+This is built on top of [AI Hedge Fund](https://github.com/virattt/ai-hedge-fund?tab=readme-ov-file)
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/virattt?style=social)](https://twitter.com/virattt)
 
 ![AI Hedge Fund Screenshot](https://github.com/user-attachments/assets/16509cc2-4b64-4c67-8de6-00d224893d58)
 
