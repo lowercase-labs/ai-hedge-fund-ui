@@ -144,7 +144,7 @@ const HedgeFundForm: React.FC = () => {
       
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left sidebar with form inputs */}
-        <div className="lg:col-span-3 space-y-4">
+        <div className="lg:col-span-4 space-y-4">
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Search container with shadow and focus effect */}
             <div className="perplexity-card dark:bg-gray-800 dark:border-gray-700">
@@ -298,7 +298,7 @@ const HedgeFundForm: React.FC = () => {
         </div>
         
         {/* Main content area with results */}
-        <div className="lg:col-span-9">
+        <div className="lg:col-span-8">
           {!results && !loading ? (
             <div className="perplexity-card h-full flex flex-col justify-center items-center py-12 dark:bg-gray-800 dark:border-gray-700">
               <svg className="w-16 h-16 text-blue-500 mb-6 opacity-50" viewBox="0 0 24 24" fill="currentColor">
