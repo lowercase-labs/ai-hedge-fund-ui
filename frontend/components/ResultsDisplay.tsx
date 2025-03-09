@@ -276,7 +276,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
         <div className="perplexity-card">
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center">
-              <svg className="h-5 w-5 text-blue-500 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="h-5 w-5 text-blue-500 dark:text-blue-400 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
@@ -317,15 +317,35 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                   );
                 }
                 
-                // Get all tickers to display
-                const tickers = Object.keys(results.analyst_signals);
+                // Extract all unique tickers from all analysts
+                const allTickers = new Set<string>();
+                Object.values(results.analyst_signals).forEach(analystData => {
+                  if (analystData && typeof analystData === 'object') {
+                    Object.keys(analystData).forEach(ticker => {
+                      // Skip risk_management_agent's "reasoning" which isn't a ticker
+                      if (ticker !== 'reasoning') {
+                        allTickers.add(ticker);
+                      }
+                    });
+                  }
+                });
+                
+                // Get array of all tickers
+                const tickers = Array.from(allTickers);
                 
                 // Create a section for each ticker
                 return tickers.map((ticker, index) => {
-                  const signals = results.analyst_signals[ticker];
+                  // Gather all signals from different analysts for this ticker
+                  const analystSignals: Record<string, any> = {};
                   
-                  // Skip if no signals
-                  if (!signals || typeof signals !== 'object' || Object.keys(signals).length === 0) {
+                  Object.entries(results.analyst_signals).forEach(([analystName, analystData]) => {
+                    if (analystData && typeof analystData === 'object' && analystData[ticker]) {
+                      analystSignals[analystName] = analystData[ticker];
+                    }
+                  });
+                  
+                  // Skip if no signals for this ticker
+                  if (Object.keys(analystSignals).length === 0) {
                     return null;
                   }
                   
@@ -350,63 +370,79 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                             </tr>
                           </thead>
                           <tbody>
-                            {Object.entries(signals).map(([analyst, data]) => {
-                              // Skip invalid data
-                              if (!data || typeof data !== 'object') {
+                            {Object.entries(analystSignals).map(([analyst, data]) => {
+                              // Skip risk_management_agent as it doesn't have a signal property
+                              if (analyst === 'risk_management_agent') {
                                 return null;
+                              }
+                              
+                              // Skip invalid data
+                              if (!data || typeof data !== 'object' || !data.signal) {
+                                return null;
+                              }
+                              
+                              // Get the rounded confidence
+                              const confidence = data.confidence !== null && data.confidence !== undefined
+                                ? Math.round(data.confidence)
+                                : null;
+                              
+                              // Format the analyst name (remove underscores and capitalize)
+                              const formattedAnalyst = analyst.split('_').map(word => 
+                                word.charAt(0).toUpperCase() + word.slice(1)
+                              ).join(' ');
+                              
+                              // Normalize signal names to match our styling
+                              let normalizedSignal = data.signal.toUpperCase();
+                              if (normalizedSignal === 'BULLISH') normalizedSignal = 'BUY';
+                              if (normalizedSignal === 'BEARISH') normalizedSignal = 'SELL';
+                              
+                              // Determine signal styling
+                              let signalBgClass, signalTextClass;
+                              if (normalizedSignal === 'BUY' || normalizedSignal === 'STRONG BUY' || normalizedSignal === 'BULLISH') {
+                                signalBgClass = 'bg-emerald-100 dark:bg-emerald-900/30';
+                                signalTextClass = 'text-emerald-800 dark:text-emerald-400';
+                              } else if (normalizedSignal === 'SELL' || normalizedSignal === 'STRONG SELL' || normalizedSignal === 'BEARISH') {
+                                signalBgClass = 'bg-red-100 dark:bg-red-900/30';
+                                signalTextClass = 'text-red-800 dark:text-red-400';
+                              } else if (normalizedSignal === 'HOLD' || normalizedSignal === 'NEUTRAL') {
+                                signalBgClass = 'bg-blue-100 dark:bg-blue-900/30';
+                                signalTextClass = 'text-blue-800 dark:text-blue-400';
+                              } else {
+                                signalBgClass = 'bg-gray-100 dark:bg-gray-900/30';
+                                signalTextClass = 'text-gray-800 dark:text-gray-400';
+                              }
+                              
+                              // Determine confidence bar color
+                              let confidenceBarColor;
+                              if (normalizedSignal === 'BUY' || normalizedSignal === 'STRONG BUY' || normalizedSignal === 'BULLISH') {
+                                confidenceBarColor = 'bg-emerald-500 dark:bg-emerald-400';
+                              } else if (normalizedSignal === 'SELL' || normalizedSignal === 'STRONG SELL' || normalizedSignal === 'BEARISH') {
+                                confidenceBarColor = 'bg-red-500 dark:bg-red-400';
+                              } else {
+                                confidenceBarColor = 'bg-blue-500 dark:bg-blue-400';
                               }
                               
                               return (
                                 <tr key={analyst} className="hover:bg-slate-50 dark:hover:bg-gray-800/70">
-                                  <td className="py-3 px-4 dark:text-gray-300 border-b border-slate-100 dark:border-gray-800">
-                                    <div className="flex items-center">
-                                      {/* Show analyst icon or avatar */}
-                                      {analyst === 'warren_buffett' || analyst === 'charlie_munger' || analyst === 'cathie_wood' || analyst === 'ben_graham' || analyst === 'bill_ackman' ? (
-                                        <img 
-                                          src={`/images/analysts/${analyst}.svg`} 
-                                          alt={analyst} 
-                                          className="w-7 h-7 mr-2 rounded-full bg-blue-50 dark:bg-blue-900"
-                                        />
-                                      ) : (
-                                        <svg className="w-6 h-6 mr-2 text-slate-400 dark:text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                                        </svg>
-                                      )}
-                                      <span className="font-medium">
-                                        {analyst.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                                      </span>
-                                    </div>
+                                  <td className="py-3 px-4 font-medium dark:text-gray-300 border-b border-slate-100 dark:border-gray-800">
+                                    {formattedAnalyst}
                                   </td>
                                   <td className="py-3 px-4 border-b border-slate-100 dark:border-gray-800">
-                                    <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium ${
-                                      data.signal === 'BUY' || data.signal === 'STRONG BUY'
-                                        ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400' 
-                                        : data.signal === 'SELL' || data.signal === 'STRONG SELL'
-                                          ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
-                                          : data.signal === 'HOLD' || data.signal === 'NEUTRAL'
-                                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
-                                            : 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
-                                    }`}>
+                                    <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium ${signalBgClass} ${signalTextClass}`}>
                                       {data.signal || 'N/A'}
                                     </span>
                                   </td>
                                   <td className="py-3 px-4 text-right border-b border-slate-100 dark:border-gray-800">
-                                    {data.confidence !== null && data.confidence !== undefined ? (
+                                    {confidence !== null ? (
                                       <div className="flex items-center justify-end">
                                         <div className="w-24 h-3 bg-slate-200 dark:bg-gray-700 rounded-full overflow-hidden mr-2">
                                           <div 
-                                            className={`h-full ${
-                                              data.signal === 'BUY' || data.signal === 'STRONG BUY'
-                                                ? 'bg-emerald-500 dark:bg-emerald-400' 
-                                                : data.signal === 'SELL' || data.signal === 'STRONG SELL'
-                                                  ? 'bg-red-500 dark:bg-red-400'
-                                                  : 'bg-blue-500 dark:bg-blue-400'
-                                            }`}
-                                            style={{ width: `${data.confidence}%` }}
+                                            className={`h-full ${confidenceBarColor}`}
+                                            style={{ width: `${confidence}%` }}
                                           ></div>
                                         </div>
                                         <span className="font-medium tabular-nums dark:text-gray-300">
-                                          {data.confidence}%
+                                          {confidence}%
                                         </span>
                                       </div>
                                     ) : (
