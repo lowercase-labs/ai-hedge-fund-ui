@@ -1,0 +1,51 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#EFF6FF"/>
+  
+  <!-- Business suit jacket -->
+  <path d="M60 110V190H140V110" fill="#3B82F6"/>
+  
+  <!-- Head shape - oval face -->
+  <ellipse cx="100" cy="65" rx="30" ry="35" fill="#FFEFD5"/>
+  
+  <!-- Hair - blonde styled -->
+  <path d="M70 65V35C70 35 75 25 100 25C125 25 130 35 130 35V65" fill="#FFD700"/>
+  <path d="M70 65C70 65 75 25 100 25C125 25 130 65 130 65" stroke="#E6C200" stroke-width="2"/>
+  <path d="M70 50C70 50 85 35 100 35C115 35 130 50 130 50" stroke="#E6C200" stroke-width="3"/>
+  
+  <!-- Side-swept bangs -->
+  <path d="M80 50C80 50 90 40 100 45" stroke="#E6C200" stroke-width="3"/>
+  
+  <!-- Shoulders and neckline -->
+  <path d="M70 110C70 110 85 95 100 95C115 95 130 110 130 110" fill="#3B82F6"/>
+  
+  <!-- Pearl necklace -->
+  <path d="M80 103C80 103 90 108 100 108C110 108 120 103 120 103" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="85" cy="105" r="2" fill="#FFFFFF"/>
+  <circle cx="93" cy="106" r="2" fill="#FFFFFF"/>
+  <circle cx="100" cy="106.5" r="2" fill="#FFFFFF"/>
+  <circle cx="107" cy="106" r="2" fill="#FFFFFF"/>
+  <circle cx="115" cy="105" r="2" fill="#FFFFFF"/>
+  
+  <!-- Eyes - with makeup -->
+  <path d="M85 65C87 63 90 63 92 65" stroke="#0F172A" stroke-width="1.5"/>
+  <ellipse cx="88.5" cy="65" rx="3.5" ry="2" fill="#0F172A"/>
+  <path d="M108 65C110 63 113 63 115 65" stroke="#0F172A" stroke-width="1.5"/>
+  <ellipse cx="111.5" cy="65" rx="3.5" ry="2" fill="#0F172A"/>
+  
+  <!-- Eyebrows - arched -->
+  <path d="M83 58C85 56 90 57 93 59" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M107 59C110 57 115 56 117 58" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Lips - with lipstick -->
+  <path d="M92 80C92 83 108 83 108 80" stroke="#CC0000" stroke-width="1.5" fill="#FF6666"/>
+  <path d="M92 80C95 78 105 78 108 80" stroke="#CC0000" stroke-width="1.5" fill="#FF6666"/>
+  
+  <!-- Earrings -->
+  <circle cx="70" cy="70" r="3" fill="#FFD700"/>
+  <circle cx="130" cy="70" r="3" fill="#FFD700"/>
+  
+  <!-- Glasses -->
+  <rect x="82" y="60" width="13" height="10" rx="5" stroke="#000000" stroke-width="1.5" fill="none"/>
+  <rect x="105" y="60" width="13" height="10" rx="5" stroke="#000000" stroke-width="1.5" fill="none"/>
+  <path d="M95 65H105" stroke="#000000" stroke-width="1.5"/>
+</svg>

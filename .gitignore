@@ -24,22 +24,99 @@ wheels/
 # Virtual Environment
 venv/
 ENV/
+.venv/
 
 # Environment Variables
 .env
+.env.local
+.env.development
+.env.test
+.env.production
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+*.sublime-workspace
+*.sublime-project
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
+.directory
 
-# graph
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+coverage/
+.nyc_output
+
+# Node.js (for UI)
+node_modules/
+frontend/node_modules/
+ai-hedge-fund-ui/node_modules/
+**/node_modules/
+.npm
+.pnp
+.pnp.js
+
+# Next.js 
+.next/
+out/
+**/.next/
+
+# Build files
+dist/
+build/
+**/dist/
+**/build/
+*.tsbuildinfo
+.vercel
+.turbo
+
+# Data files
 *.png
-
-# Txt files
+*.jpg
+*.jpeg
+*.svg
+*.csv
+*.xlsx
+*.xls
+*.json
 *.txt
+!package.json
+!package-lock.json
+!tsconfig.json
+!next.config.js
+!tailwind.config.js
+!postcss.config.js
+
+# Cache
+.cache/
+.parcel-cache/
+**/.swc/
+.eslintcache
+
+# Local Netlify folder
+.netlify
+
+# Sensitive data
+*.pem
+*.key
+*.cert
+**/public/images/analysts/*.jpg
+
+# Exception for specific SVG files that should be committed
+!**/public/images/analysts/*.svg
+!**/public/images/analysts/README.md

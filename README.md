@@ -1,27 +1,22 @@
 # AI Hedge Fund
 
-This is a proof of concept for an AI-powered hedge fund.  The goal of this project is to explore the use of AI to make trading decisions.  This project is for **educational** purposes only and is not intended for real trading or investment.
+A modern, AI-powered platform for financial analysis and simulated trading decisions. This platform leverages multiple AI analysts to provide comprehensive stock analysis and trading recommendations.
 
-This system employs several agents working together:
+![AI Hedge Fund Screenshot](https://github.com/user-attachments/assets/16509cc2-4b64-4c67-8de6-00d224893d58)
 
-1. Ben Graham Agent - The godfather of value investing, only buys hidden gems with a margin of safety
-2. Bill Ackman Agent - An activist investors, takes bold positions and pushes for change
-3. Cathie Wood Agent - The queen of growth investing, believes in the power of innovation and disruption
-4. Warren Buffett Agent - The oracle of Omaha, seeks wonderful companies at a fair price
-5. Charlie Munger Agent - Warren Buffett's partner, only buys wonderful businesses at fair prices
-6. Valuation Agent - Calculates the intrinsic value of a stock and generates trading signals
-7. Sentiment Agent - Analyzes market sentiment and generates trading signals
-8. Fundamentals Agent - Analyzes fundamental data and generates trading signals
-9. Technicals Agent - Analyzes technical indicators and generates trading signals
-10. Risk Manager - Calculates risk metrics and sets position limits
-11. Portfolio Manager - Makes final trading decisions and generates orders
-
-<img width="1117" alt="Screenshot 2025-02-09 at 11 26 14 AM" src="https://github.com/user-attachments/assets/16509cc2-4b64-4c67-8de6-00d224893d58" />
-
-
-**Note**: the system simulates trading decisions, it does not actually trade.
+**Note**: This system simulates trading decisions and does not perform actual trades.
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/virattt?style=social)](https://twitter.com/virattt)
+
+## Features
+
+- **Multi-Agent Analysis**: Leverages diverse financial perspectives using famous investor personas
+- **Interactive Web UI**: Modern, responsive interface with dark mode support
+- **Real-time Analysis**: Generates financial insights on selected stocks
+- **Comprehensive Reporting**: Detailed trading recommendations with reasoning
+- **Expert AI Analysts**: Multiple AI agents analyzing different aspects of stocks
+  1. **Famous Investors**: Ben Graham, Bill Ackman, Cathie Wood, Warren Buffett, Charlie Munger
+  2. **Technical Analysts**: Fundamentals, Technicals, Valuation, Sentiment, Risk Manager, Portfolio Manager
 
 ## Disclaimer
 
@@ -37,8 +32,12 @@ By using this software, you agree to use it solely for learning purposes.
 
 ## Table of Contents
 - [Setup](#setup)
+  - [Backend Setup](#backend-setup)
+  - [UI Setup](#ui-setup)
 - [Usage](#usage)
-  - [Running the Hedge Fund](#running-the-hedge-fund)
+  - [Using the Web Interface](#using-the-web-interface)
+  - [Using the API](#using-the-api)
+  - [Running the CLI](#running-the-cli)
   - [Running the Backtester](#running-the-backtester)
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
@@ -52,6 +51,8 @@ Clone the repository:
 git clone https://github.com/virattt/ai-hedge-fund.git
 cd ai-hedge-fund
 ```
+
+### Backend Setup
 
 1. Install Poetry (if not already installed):
 ```bash
@@ -69,82 +70,132 @@ poetry install
 cp .env.example .env
 ```
 
-4. Set your API keys:
-```bash
-# For running LLMs hosted by openai (gpt-4o, gpt-4o-mini, etc.)
-# Get your OpenAI API key from https://platform.openai.com/
+4. Set your API keys in the .env file:
+```
+# For LLM access (required, choose at least one)
 OPENAI_API_KEY=your-openai-api-key
-
-# For running LLMs hosted by groq (deepseek, llama3, etc.)
-# Get your Groq API key from https://groq.com/
 GROQ_API_KEY=your-groq-api-key
+ANTHROPIC_API_KEY=your-anthropic-api-key
 
-# For getting financial data to power the hedge fund
-# Get your Financial Datasets API key from https://financialdatasets.ai/
+# For financial data (optional for common stocks)
 FINANCIAL_DATASETS_API_KEY=your-financial-datasets-api-key
 ```
 
-**Important**: You must set `OPENAI_API_KEY`, `GROQ_API_KEY`, or `ANTHROPIC_API_KEY` for the hedge fund to work.  If you want to use LLMs from all providers, you will need to set all API keys.
+### UI Setup
 
-Financial data for AAPL, GOOGL, MSFT, NVDA, and TSLA is free and does not require an API key.
+1. Navigate to the UI directory:
+```bash
+cd ai-hedge-fund-ui
+```
 
-For any other ticker, you will need to set the `FINANCIAL_DATASETS_API_KEY` in the .env file.
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+The UI will be available at http://localhost:3000
 
 ## Usage
 
-### Running the Hedge Fund
+### Using the Web Interface
+
+1. Start the API server:
 ```bash
+python run_api.py
+```
+
+2. In a separate terminal, start the UI:
+```bash
+cd ai-hedge-fund-ui
+npm run dev
+```
+
+3. Open http://localhost:3000 in your browser
+4. Enter stock symbols, select analysts, and generate analysis
+
+### Using the API
+
+The system provides a RESTful API for integration with other applications:
+
+```bash
+# Start the API server
+python run_api.py
+```
+
+Example API request:
+```bash
+curl -X POST http://localhost:8000/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"tickers": ["AAPL", "MSFT"], "start_date": "2024-01-01", "end_date": "2024-03-01", "show_reasoning": true}'
+```
+
+See API_USAGE.md for detailed API documentation.
+
+### Running the CLI
+
+For command-line usage:
+
+```bash
+# Basic usage
 poetry run python src/main.py --ticker AAPL,MSFT,NVDA
-```
 
-**Example Output:**
-<img width="992" alt="Screenshot 2025-01-06 at 5 50 17 PM" src="https://github.com/user-attachments/assets/e8ca04bf-9989-4a7d-a8b4-34e04666663b" />
-
-You can also specify a `--show-reasoning` flag to print the reasoning of each agent to the console.
-
-```bash
+# With reasoning
 poetry run python src/main.py --ticker AAPL,MSFT,NVDA --show-reasoning
-```
-You can optionally specify the start and end dates to make decisions for a specific time period.
 
-```bash
-poetry run python src/main.py --ticker AAPL,MSFT,NVDA --start-date 2024-01-01 --end-date 2024-03-01 
+# Specific time period
+poetry run python src/main.py --ticker AAPL,MSFT,NVDA --start-date 2024-01-01 --end-date 2024-03-01
 ```
 
 ### Running the Backtester
 
+Test trading strategies against historical data:
+
 ```bash
 poetry run python src/backtester.py --ticker AAPL,MSFT,NVDA
-```
 
-**Example Output:**
-<img width="941" alt="Screenshot 2025-01-06 at 5 47 52 PM" src="https://github.com/user-attachments/assets/00e794ea-8628-44e6-9a84-8f8a31ad3b47" />
-
-You can optionally specify the start and end dates to backtest over a specific time period.
-
-```bash
+# Specific time period
 poetry run python src/backtester.py --ticker AAPL,MSFT,NVDA --start-date 2024-01-01 --end-date 2024-03-01
 ```
 
-## Project Structure 
+## Project Structure
+
 ```
 ai-hedge-fund/
+├── ai-hedge-fund-ui/       # React-based frontend
+│   ├── app/                # Next.js app directory
+│   ├── components/         # UI components
+│   ├── lib/                # UI utilities
+│   └── types/              # TypeScript type definitions
 ├── src/
-│   ├── agents/                   # Agent definitions and workflow
-│   │   ├── bill_ackman.py        # Bill Ackman agent
-│   │   ├── fundamentals.py       # Fundamental analysis agent
-│   │   ├── portfolio_manager.py  # Portfolio management agent
-│   │   ├── risk_manager.py       # Risk management agent
-│   │   ├── sentiment.py          # Sentiment analysis agent
-│   │   ├── technicals.py         # Technical analysis agent
-│   │   ├── valuation.py          # Valuation analysis agent
-│   │   ├── warren_buffett.py     # Warren Buffett agent
-│   ├── tools/                    # Agent tools
-│   │   ├── api.py                # API tools
-│   ├── backtester.py             # Backtesting tools
-│   ├── main.py # Main entry point
-├── pyproject.toml
-├── ...
+│   ├── agents/             # AI Analyst implementation
+│   │   ├── ben_graham.py
+│   │   ├── bill_ackman.py
+│   │   ├── cathie_wood.py
+│   │   ├── charlie_munger.py
+│   │   ├── fundamentals.py
+│   │   ├── portfolio_manager.py
+│   │   ├── risk_manager.py
+│   │   ├── sentiment.py
+│   │   ├── technicals.py
+│   │   ├── valuation.py
+│   │   └── warren_buffett.py
+│   ├── data/               # Data handling modules
+│   ├── graph/              # Graph generation
+│   ├── llm/                # LLM integration
+│   ├── tools/              # Agent tools
+│   ├── utils/              # Utility functions
+│   ├── api.py              # API implementation
+│   ├── api_wrapper.py      # API client wrapper
+│   ├── backtester.py       # Backtesting tools
+│   └── main.py             # CLI entry point
+├── .env.example            # Environment variable template
+├── pyproject.toml          # Python dependencies
+└── setup_dev.py            # Development setup script
 ```
 
 ## Contributing
@@ -155,11 +206,11 @@ ai-hedge-fund/
 4. Push to the branch
 5. Create a Pull Request
 
-**Important**: Please keep your pull requests small and focused.  This will make it easier to review and merge.
+**Important**: Please keep your pull requests small and focused for easier review and merging.
 
 ## Feature Requests
 
-If you have a feature request, please open an [issue](https://github.com/virattt/ai-hedge-fund/issues) and make sure it is tagged with `enhancement`.
+If you have a feature request, please open an [issue](https://github.com/virattt/ai-hedge-fund/issues) and tag it with `enhancement`.
 
 ## License
 

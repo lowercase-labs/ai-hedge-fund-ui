@@ -1,0 +1,61 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#EFF6FF"/>
+  
+  <!-- Classic suit -->
+  <path d="M60 110V190H140V110" fill="#0F172A"/>
+  
+  <!-- Head shape - wider with age -->
+  <ellipse cx="100" cy="70" rx="38" ry="35" fill="#FFEFD5"/>
+  
+  <!-- White/gray hair on sides but balding on top -->
+  <path d="M65 65C65 50 80 45 100 40C120 45 135 50 135 65" stroke="#D1D5DB" stroke-width="3"/>
+  
+  <!-- Side hair tufts - white/gray -->
+  <path d="M65 60C65 60 75 45 80 50" stroke="#F8FAFC" stroke-width="3"/>
+  <path d="M135 60C135 60 125 45 120 50" stroke="#F8FAFC" stroke-width="3"/>
+  
+  <!-- Balding top with age spots -->
+  <ellipse cx="100" cy="50" rx="25" ry="15" fill="#FFEFD5"/>
+  <circle cx="90" cy="45" r="1" fill="#94A3B8"/>
+  <circle cx="110" cy="48" r="1" fill="#94A3B8"/>
+  
+  <!-- Suit and shirt -->
+  <path d="M75 110V150C75 165.333 83.667 175 100 175C116.333 175 125 165.333 125 150V110" fill="#334155"/>
+  <path d="M85 110V140H115V110" fill="#FFFFFF"/>
+  
+  <!-- Simple tie - Buffett typically wears simple ties -->
+  <path d="M100 110V155" stroke="#3B82F6" stroke-width="10"/>
+  <path d="M100 125L92 110H108L100 125" fill="#3B82F6"/>
+  
+  <!-- Oversized glasses - his trademark -->
+  <path d="M80 70C80 65 85 62 90 62H95C100 62 105 65 105 70C105 75 100 78 95 78H90C85 78 80 75 80 70Z" stroke="#0F172A" stroke-width="2" fill="none"/>
+  <path d="M105 70C105 65 110 62 115 62H120C125 62 130 65 130 70C130 75 125 78 120 78H115C110 78 105 75 105 70Z" stroke="#0F172A" stroke-width="2" fill="none"/>
+  <path d="M105 70H105.5" stroke="#0F172A" stroke-width="1.5"/>
+  
+  <!-- Eyes behind glasses -->
+  <ellipse cx="90" cy="70" rx="3" ry="2.5" fill="#1E40AF"/>
+  <ellipse cx="120" cy="70" rx="3" ry="2.5" fill="#1E40AF"/>
+  
+  <!-- Eyebrows - bushy and light colored -->
+  <path d="M78 60C83 57 88 57 95 58" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round"/>
+  <path d="M115 58C122 57 127 57 132 60" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Smiling mouth - friendly but reserved -->
+  <path d="M85 85C90 90 110 90 115 85" stroke="#1E3A8A" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Age lines/wrinkles - prominent -->
+  <path d="M75 75C80 73 85 73 90 75" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M110 75C115 73 120 73 125 75" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M80 90C90 94 110 94 120 90" stroke="#94A3B8" stroke-width="1" stroke-linecap="round"/>
+  
+  <!-- Cheek lines -->
+  <path d="M75 80L85 95" stroke="#94A3B8" stroke-width="1" stroke-linecap="round"/>
+  <path d="M125 80L115 95" stroke="#94A3B8" stroke-width="1" stroke-linecap="round"/>
+  
+  <!-- Double chin - age appropriate -->
+  <path d="M85 100C90 105 110 105 115 100" stroke="#FFEFD5" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Ears - slightly larger with age -->
+  <path d="M62 65C60 70 60 75 62 80" stroke="#FFEFD5" stroke-width="3" stroke-linecap="round"/>
+  <path d="M138 65C140 70 140 75 138 80" stroke="#FFEFD5" stroke-width="3" stroke-linecap="round"/>
+</svg>

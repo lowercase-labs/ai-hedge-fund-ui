@@ -1,0 +1,59 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#EFF6FF"/>
+  
+  <!-- Business suit -->
+  <path d="M60 110V190H140V110" fill="#1E3A8A"/>
+  
+  <!-- Head -->
+  <circle cx="100" cy="70" r="35" fill="#FFEFD5"/>
+  
+  <!-- Suit collar and shirt -->
+  <path d="M70 110V150C70 165.333 83.667 180 100 180C116.333 180 130 165.333 130 150V110" fill="#1E40AF"/>
+  <path d="M85 110V140H115V110" fill="#FFFFFF"/>
+  
+  <!-- Tie -->
+  <path d="M100 110V160" stroke="#94A3B8" stroke-width="8"/>
+  <path d="M100 125L90 110H110L100 125" fill="#94A3B8"/>
+  
+  <!-- Balding head with white hair on sides -->
+  <path d="M100 35C80 35 70 50 70 65" stroke="#FFFFFF" stroke-width="4"/>
+  <path d="M100 35C120 35 130 50 130 65" stroke="#FFFFFF" stroke-width="4"/>
+  
+  <!-- The top of his head is mostly bald -->
+  <path d="M80 45C85 35 95 32 100 32C105 32 115 35 120 45" stroke="#FFEFD5" stroke-width="4"/>
+  
+  <!-- White hair wisps on sides -->
+  <path d="M70 65C70 65 75 45 80 50" stroke="#FFFFFF" stroke-width="3"/>
+  <path d="M130 65C130 65 125 45 120 50" stroke="#FFFFFF" stroke-width="3"/>
+  <path d="M75 60C75 60 80 55 85 58" stroke="#FFFFFF" stroke-width="2"/>
+  <path d="M125 60C125 60 120 55 115 58" stroke="#FFFFFF" stroke-width="2"/>
+  
+  <!-- Round vintage glasses -->
+  <circle cx="85" cy="70" r="12" stroke="#000000" stroke-width="2" fill="none"/>
+  <circle cx="115" cy="70" r="12" stroke="#000000" stroke-width="2" fill="none"/>
+  <path d="M97 70H103" stroke="#000000" stroke-width="2"/>
+  
+  <!-- Eyes behind glasses -->
+  <circle cx="85" cy="70" r="3" fill="#1E40AF"/>
+  <circle cx="115" cy="70" r="3" fill="#1E40AF"/>
+  
+  <!-- Eyebrows - white/gray -->
+  <path d="M75 55C80 52 85 52 95 55" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round"/>
+  <path d="M105 55C115 52 120 52 125 55" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Mouth - slight academic smile -->
+  <path d="M90 90C95 93 105 93 110 90" stroke="#1E40AF" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Age features - deep wrinkles -->
+  <path d="M75 80C80 82 85 82 90 84" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M110 84C115 82 120 82 125 80" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M80 95C85 97 95 97 100 95" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M100 95C105 97 115 97 120 95" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Forehead wrinkles -->
+  <path d="M80 45C85 43 95 43 100 45" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M100 45C105 43 115 43 120 45" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Pocket square - professor touch -->
+  <path d="M120 115L125 112L120 109L115 112L120 115Z" fill="#FFFFFF"/>
+</svg>

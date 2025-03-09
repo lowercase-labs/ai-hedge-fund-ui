@@ -1,0 +1,44 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#EFF6FF"/>
+  
+  <!-- Suit -->
+  <path d="M60 110V190H140V110" fill="#1E3A8A"/>
+  
+  <!-- Head -->
+  <circle cx="100" cy="70" r="35" fill="#BFDBFE"/>
+  
+  <!-- Suit collar and shirt -->
+  <path d="M70 110V140C70 155.333 83.667 170 100 170C116.333 170 130 155.333 130 140V110" fill="#3B82F6"/>
+  <path d="M85 110V130H115V110" fill="#FFFFFF"/>
+  
+  <!-- Tie -->
+  <path d="M100 110V170" stroke="#FF0000" stroke-width="8"/>
+  <path d="M100 130L90 110H110L100 130" fill="#FF0000"/>
+  
+  <!-- Big glasses - Charlie's signature -->
+  <rect x="75" y="62" width="20" height="16" rx="4" stroke="#000000" stroke-width="3" fill="none"/>
+  <rect x="105" y="62" width="20" height="16" rx="4" stroke="#000000" stroke-width="3" fill="none"/>
+  <path d="M95 70H105" stroke="#000000" stroke-width="3"/>
+  
+  <!-- Eyes behind glasses -->
+  <circle cx="85" cy="70" r="3" fill="#1E40AF"/>
+  <circle cx="115" cy="70" r="3" fill="#1E40AF"/>
+  
+  <!-- Eyebrows - bushy -->
+  <path d="M72 58C80 54 85 56 95 58" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+  <path d="M105 58C115 56 120 54 128 58" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Mouth - frown/stern look -->
+  <path d="M85 90C90 87 110 87 115 90" stroke="#1E40AF" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Age features - extreme wrinkles -->
+  <path d="M70 80C80 77 85 77 95 80" stroke="#93C5FD" stroke-width="2" stroke-linecap="round"/>
+  <path d="M105 80C115 77 120 77 130 80" stroke="#93C5FD" stroke-width="2" stroke-linecap="round"/>
+  <path d="M75 50C80 48 85 46 90 48" stroke="#93C5FD" stroke-width="2" stroke-linecap="round"/>
+  <path d="M110 50C115 46 120 48 125 50" stroke="#93C5FD" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Sparse hair -->
+  <path d="M70 40C75 35 85 32 100 32C115 32 125 35 130 40" stroke="#CCCCCC" stroke-width="2"/>
+  <path d="M65 55C65 55 70 35 75 40" stroke="#CCCCCC" stroke-width="2"/>
+  <path d="M135 55C135 55 130 35 125 40" stroke="#CCCCCC" stroke-width="2"/>
+</svg>
