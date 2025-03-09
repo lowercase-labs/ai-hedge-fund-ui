@@ -83,6 +83,27 @@ FINANCIAL_DATASETS_API_KEY=your-financial-datasets-api-key
 
 ### UI Setup
 
+The project has two UI options:
+
+#### Option 1: Using the frontend directory (recommended)
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+#### Option 2: Using the legacy UI
+
 1. Navigate to the UI directory:
 ```bash
 cd ai-hedge-fund-ui
@@ -109,8 +130,13 @@ The UI will be available at http://localhost:3000
 python run_api.py
 ```
 
-2. In a separate terminal, start the UI:
+2. In a separate terminal, start the UI (choose one option):
 ```bash
+# Option 1: Using the frontend directory (recommended)
+cd frontend
+npm run dev
+
+# Option 2: Using the legacy UI
 cd ai-hedge-fund-ui
 npm run dev
 ```
@@ -166,7 +192,12 @@ poetry run python src/backtester.py --ticker AAPL,MSFT,NVDA --start-date 2024-01
 
 ```
 ai-hedge-fund/
-├── ai-hedge-fund-ui/       # React-based frontend
+├── frontend/               # Main Next.js frontend (recommended)
+│   ├── app/                # Next.js app directory
+│   ├── components/         # UI components
+│   ├── lib/                # UI utilities
+│   └── types/              # TypeScript type definitions
+├── ai-hedge-fund-ui/       # Legacy React-based frontend
 │   ├── app/                # Next.js app directory
 │   ├── components/         # UI components
 │   ├── lib/                # UI utilities
@@ -193,8 +224,10 @@ ai-hedge-fund/
 │   ├── api_wrapper.py      # API client wrapper
 │   ├── backtester.py       # Backtesting tools
 │   └── main.py             # CLI entry point
+├── API_USAGE.md            # API documentation
 ├── .env.example            # Environment variable template
 ├── pyproject.toml          # Python dependencies
+├── run_api.py              # API server runner
 └── setup_dev.py            # Development setup script
 ```
 
