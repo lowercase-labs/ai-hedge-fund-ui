@@ -17,6 +17,9 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
     }
   }, [results]);
 
+  // Add this state near where other state is defined (e.g., top of the component or inside the analyst signals section)
+  const [selectedAnalyst, setSelectedAnalyst] = React.useState<{ticker: string, analyst: string, reasoning: string | null} | null>(null);
+
   if (loading) {
     return (
       <div className="perplexity-card animate-pulse space-y-4">
@@ -423,7 +426,24 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                               }
                               
                               return (
-                                <tr key={analyst} className="hover:bg-slate-50 dark:hover:bg-gray-800/70">
+                                <tr 
+                                  key={analyst} 
+                                  className="hover:bg-slate-50 dark:hover:bg-gray-800/70 cursor-pointer"
+                                  onClick={() => {
+                                    if (data.reasoning) {
+                                      console.log("Row clicked, setting selectedAnalyst:", {
+                                        ticker,
+                                        analyst: formattedAnalyst,
+                                        reasoning: typeof data.reasoning === 'string' ? data.reasoning : JSON.stringify(data.reasoning, null, 2)
+                                      });
+                                      setSelectedAnalyst({
+                                        ticker,
+                                        analyst: formattedAnalyst,
+                                        reasoning: typeof data.reasoning === 'string' ? data.reasoning : JSON.stringify(data.reasoning, null, 2)
+                                      });
+                                    }
+                                  }}
+                                >
                                   <td className="py-3 px-4 font-medium dark:text-gray-300 border-b border-slate-100 dark:border-gray-800">
                                     {formattedAnalyst}
                                   </td>
@@ -467,6 +487,45 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                 );
               }
             })()}
+          </div>
+        </div>
+      )}
+      
+      {/* Add the modal at the end, but still inside the main return div */}
+      {selectedAnalyst && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-5 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+              <div>
+                <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                  {selectedAnalyst.ticker}
+                </span>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  {selectedAnalyst.analyst} Analysis
+                </h3>
+              </div>
+              <button 
+                className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                onClick={() => setSelectedAnalyst(null)}
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="p-5">
+              <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
+                {selectedAnalyst.reasoning || "No detailed reasoning available."}
+              </div>
+            </div>
+            <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                onClick={() => setSelectedAnalyst(null)}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
