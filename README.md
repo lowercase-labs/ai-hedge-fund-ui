@@ -198,11 +198,6 @@ ai-hedge-fund/
 │   ├── components/         # UI components
 │   ├── lib/                # UI utilities
 │   └── types/              # TypeScript type definitions
-├── ai-hedge-fund-ui/       # Legacy React-based frontend
-│   ├── app/                # Next.js app directory
-│   ├── components/         # UI components
-│   ├── lib/                # UI utilities
-│   └── types/              # TypeScript type definitions
 ├── src/
 │   ├── agents/             # AI Analyst implementation
 │   │   ├── ben_graham.py
