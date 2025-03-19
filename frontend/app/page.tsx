@@ -1,9 +1,14 @@
-import HedgeFundForm from '@/components/HedgeFundForm';
+'use client';
+
+import ProtectedRoute from '../components/ProtectedRoute';
 
 export default function Home() {
   return (
-    <div className="py-6">
-      <HedgeFundForm />
-    </div>
+    <ProtectedRoute>
+      {/* Your protected page content */}
+      <div>
+        <h1>Protected Home Page</h1>
+      </div>
+    </ProtectedRoute>
   );
 }
