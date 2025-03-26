@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
   // For protected routes, we'll check auth state on the client side
   if (!isPublicPath) {
     const loginUrl = new URL('/login', request.url);
-    return NextResponse.redirect(loginUrl);
+    // return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();

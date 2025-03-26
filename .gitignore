@@ -120,3 +120,4 @@ build/
 # Exception for specific SVG files that should be committed
 !**/public/images/analysts/*.svg
 !**/public/images/analysts/README.md
+!frontend/lib

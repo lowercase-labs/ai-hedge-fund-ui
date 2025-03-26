@@ -5,7 +5,7 @@ import { User } from 'firebase/auth';
 import { auth } from '../services/config/init';
 import { authService } from '../services/auth/auth.service';
 import ThemeToggle from './ThemeToggle';
-
+import { useRouter } from 'next/navigation';
 export default function AuthLayout({
   children,
 }: {
@@ -13,8 +13,12 @@ export default function AuthLayout({
 }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
+    if (user) {
+    router.push('/');
+    }
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
       setLoading(false);
