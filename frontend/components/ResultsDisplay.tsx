@@ -2,6 +2,8 @@
 
 import React from 'react';
 import type { HedgeFundResponse } from '@/types/api';
+import { analysisService } from '@/services/analysis/analysis.service';
+import { auth } from '@/services/config/init';
 
 interface ResultsDisplayProps {
   results: HedgeFundResponse | null;
@@ -19,6 +21,60 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
 
   // Add this state near where other state is defined (e.g., top of the component or inside the analyst signals section)
   const [selectedAnalyst, setSelectedAnalyst] = React.useState<{ticker: string, analyst: string, reasoning: string | null} | null>(null);
+
+  const handleSaveAnalysis = async () => {
+    try {
+      // Debug authentication state
+      console.log('Current auth state:', {
+        isAuthenticated: !!auth.currentUser,
+        userId: auth.currentUser?.uid,
+        email: auth.currentUser?.email
+      });
+
+      if (!auth.currentUser) {
+        throw new Error('You must be signed in to save analyses');
+      }
+
+      if (!results) {
+        throw new Error('No results to save');
+      }
+
+      // Clean and validate the data before saving
+      const analysisData = {
+        title: 'Portfolio Analysis',
+        description: 'Analysis of portfolio performance and trading decisions',
+        parameters: {
+          portfolio_value: results.decisions?.portfolio_value || 0,
+          tickers: Object.keys(results.decisions || {}).filter(key => key !== 'portfolio_value'),
+        },
+        results: {
+          decisions: results.decisions || {},
+          analyst_signals: results.analyst_signals || {},
+        },
+        status: 'completed' as const,
+      };
+
+      // Validate that we have at least some data to save
+      if (!analysisData.parameters.tickers.length && !Object.keys(analysisData.results.decisions).length) {
+        throw new Error('No analysis data to save');
+      }
+
+      // Add console.log to debug the data being saved
+      console.log('Saving analysis data:', analysisData);
+      console.log('Current user:', auth.currentUser.uid);
+
+      const savedAnalysis = await analysisService.createAnalysis(analysisData);
+      console.log('Analysis saved successfully:', savedAnalysis);
+      alert('Analysis saved successfully!');
+    } catch (error) {
+      console.error('Error saving analysis:', error);
+      if (error instanceof Error) {
+        alert(`Error: ${error.message}`);
+      } else {
+        alert('Failed to save analysis. Please try again.');
+      }
+    }
+  };
 
   if (loading) {
     return (
@@ -75,14 +131,25 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center space-x-2 mb-2">
-        <svg className="h-5 w-5 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-          <line x1="9" y1="9" x2="9.01" y2="9" />
-          <line x1="15" y1="9" x2="15.01" y2="9" />
-        </svg>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-white">Analysis Results</h2>
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center space-x-2">
+          <svg className="h-5 w-5 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+            <line x1="9" y1="9" x2="9.01" y2="9" />
+            <line x1="15" y1="9" x2="15.01" y2="9" />
+          </svg>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white">Analysis Results</h2>
+        </div>
+        <button
+          onClick={handleSaveAnalysis}
+          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors flex items-center space-x-2"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+          </svg>
+          <span>Save Analysis</span>
+        </button>
       </div>
       
       {/* Portfolio Value */}

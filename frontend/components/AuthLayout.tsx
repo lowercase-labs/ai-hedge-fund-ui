@@ -6,6 +6,8 @@ import { auth } from '../services/config/init';
 import { authService } from '../services/auth/auth.service';
 import ThemeToggle from './ThemeToggle';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
 export default function AuthLayout({
   children,
 }: {
@@ -17,7 +19,7 @@ export default function AuthLayout({
 
   useEffect(() => {
     if (user) {
-    router.push('/');
+      router.push('/');
     }
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
@@ -46,6 +48,22 @@ export default function AuthLayout({
             <h1 className="text-xl font-semibold text-slate-800 dark:text-white">AI Hedge Fund UI</h1>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
+            {user && (
+              <>
+                <Link
+                  href="/"
+                  className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/analysis"
+                  className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white"
+                >
+                  Analysis
+                </Link>
+              </>
+            )}
           </nav>
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />

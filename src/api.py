@@ -1,5 +1,5 @@
 from typing import List, Dict, Optional
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, APIRouter, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -8,6 +8,10 @@ import json
 import os
 import sys
 from pathlib import Path
+from sqlalchemy.orm import Session
+import uuid
+from .models.analysis import Analysis
+from .utils.database import get_db
 
 # Add the project root to Python path to make imports work
 project_root = Path(__file__).parent.parent
@@ -62,6 +66,68 @@ class HedgeFundResponse(BaseModel):
     analyst_signals: Optional[dict] = None
     ticker_signals: Optional[dict] = None
     error: Optional[str] = None
+
+router = APIRouter()
+
+@router.post("/analyses")
+async def create_analysis(
+    title: str,
+    description: str,
+    parameters: dict,
+    db: Session = Depends(get_db)
+):
+    analysis = Analysis(
+        id=str(uuid.uuid4()),
+        title=title,
+        description=description,
+        parameters=parameters,
+        status="in_progress"
+    )
+    db.add(analysis)
+    db.commit()
+    db.refresh(analysis)
+    return analysis.to_dict()
+
+@router.get("/analyses")
+async def list_analyses(db: Session = Depends(get_db)):
+    analyses = db.query(Analysis).order_by(Analysis.created_at.desc()).all()
+    return [analysis.to_dict() for analysis in analyses]
+
+@router.get("/analyses/{analysis_id}")
+async def get_analysis(analysis_id: str, db: Session = Depends(get_db)):
+    analysis = db.query(Analysis).filter(Analysis.id == analysis_id).first()
+    if not analysis:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+    return analysis.to_dict()
+
+@router.delete("/analyses/{analysis_id}")
+async def delete_analysis(analysis_id: str, db: Session = Depends(get_db)):
+    analysis = db.query(Analysis).filter(Analysis.id == analysis_id).first()
+    if not analysis:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+    db.delete(analysis)
+    db.commit()
+    return {"message": "Analysis deleted successfully"}
+
+@router.put("/analyses/{analysis_id}")
+async def update_analysis(
+    analysis_id: str,
+    results: dict,
+    status: str,
+    error_message: str = None,
+    db: Session = Depends(get_db)
+):
+    analysis = db.query(Analysis).filter(Analysis.id == analysis_id).first()
+    if not analysis:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+    
+    analysis.results = results
+    analysis.status = status
+    analysis.error_message = error_message
+    
+    db.commit()
+    db.refresh(analysis)
+    return analysis.to_dict()
 
 @app.get("/")
 async def root():
