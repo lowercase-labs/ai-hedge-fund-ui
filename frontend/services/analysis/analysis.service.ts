@@ -11,62 +11,54 @@ import {
   where,
   Timestamp
 } from 'firebase/firestore';
-import { db } from '../config/init';
-import { auth } from '../config/init';
+import { db, auth } from '../config/init';
+import { userService } from '../user/user.service';
 
 export interface Analysis {
   id: string;
   userId: string;
   title: string;
   description: string;
-  parameters: Record<string, any>;
-  results: Record<string, any> | null;
+  parameters: any;
+  results: any;
   createdAt: Date;
   status: 'completed' | 'failed' | 'in_progress';
   errorMessage?: string;
 }
 
-export const analysisService = {
-  async createAnalysis(data: Omit<Analysis, 'id' | 'userId' | 'createdAt'>): Promise<Analysis> {
-    if (!auth.currentUser) {
-      throw new Error('User must be authenticated');
-    }
+class AnalysisService {
+  private readonly COLLECTION = 'analyses';
 
-    // Debug auth and data
-    console.log('Creating analysis with auth:', {
-      userId: auth.currentUser.uid,
-      email: auth.currentUser.email,
-      isAnonymous: auth.currentUser.isAnonymous,
-      providerData: auth.currentUser.providerData
-    });
+  async createAnalysis(data: Omit<Analysis, 'id' | 'userId' | 'createdAt'>): Promise<Analysis> {
+    const user = auth.currentUser;
+    if (!user) throw new Error('User must be authenticated');
 
     const analysisData = {
       ...data,
-      userId: auth.currentUser.uid,
-      createdAt: Timestamp.now(),
+      userId: user.uid,
+      createdAt: Timestamp.fromDate(new Date())
     };
-
-    // Debug the final data being sent to Firestore
-    console.log('Sending to Firestore:', JSON.stringify(analysisData, null, 2));
 
     try {
       // Verify collection exists
-      const analysesRef = collection(db, 'analyses');
+      const analysesRef = collection(db, this.COLLECTION);
       console.log('Collection reference:', analysesRef.path);
 
+      // Add document to collection
       const docRef = await addDoc(analysesRef, analysisData);
-      console.log('Document written with ID:', docRef.id);
-      
+      console.log('Document added with ID:', docRef.id);
+
+      // Get the created document
       const docSnap = await getDoc(docRef);
-      console.log('Retrieved document:', docSnap.data());
-      
+      console.log('Document data:', docSnap.data());
+
       return {
-        id: docRef.id,
+        id: docSnap.id,
         ...docSnap.data(),
-        createdAt: docSnap.data()?.createdAt.toDate(),
+        createdAt: docSnap.data()?.createdAt.toDate()
       } as Analysis;
     } catch (error: any) {
-      console.error('Firestore error details:', {
+      console.error('Error creating analysis:', {
         code: error?.code,
         message: error?.message,
         details: error?.details,
@@ -74,16 +66,15 @@ export const analysisService = {
       });
       throw error;
     }
-  },
+  }
 
   async getAnalyses(): Promise<Analysis[]> {
-    if (!auth.currentUser) {
-      throw new Error('User must be authenticated');
-    }
+    const user = auth.currentUser;
+    if (!user) throw new Error('User must be authenticated');
 
     const q = query(
-      collection(db, 'analyses'),
-      where('userId', '==', auth.currentUser.uid),
+      collection(db, this.COLLECTION),
+      where('userId', '==', user.uid),
       orderBy('createdAt', 'desc')
     );
 
@@ -91,101 +82,86 @@ export const analysisService = {
     return querySnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data(),
-      createdAt: doc.data().createdAt.toDate(),
+      createdAt: doc.data().createdAt.toDate()
     })) as Analysis[];
-  },
+  }
 
   async getAnalysis(id: string): Promise<Analysis> {
-    if (!auth.currentUser) {
-      throw new Error('User must be authenticated');
-    }
+    const user = auth.currentUser;
+    if (!user) throw new Error('User must be authenticated');
 
     console.log('Fetching analysis with ID:', id);
     console.log('Current user:', {
-      uid: auth.currentUser.uid,
-      email: auth.currentUser.email
+      uid: user.uid,
+      email: user.email
     });
 
-    const docRef = doc(db, 'analyses', id);
+    const docRef = doc(db, this.COLLECTION, id);
     console.log('Document reference path:', docRef.path);
 
-    try {
-      const docSnap = await getDoc(docRef);
-      console.log('Document exists:', docSnap.exists());
-      
-      if (!docSnap.exists()) {
-        throw new Error('Analysis not found');
-      }
+    const docSnap = await getDoc(docRef);
+    console.log('Document exists:', docSnap.exists());
 
-      const data = docSnap.data();
-      console.log('Document data:', data);
-      
-      if (data.userId !== auth.currentUser.uid) {
-        console.error('User ID mismatch:', {
-          documentUserId: data.userId,
-          currentUserId: auth.currentUser.uid
-        });
-        throw new Error('Unauthorized access');
-      }
-
-      return {
-        id: docSnap.id,
-        ...data,
-        createdAt: data.createdAt.toDate(),
-      } as Analysis;
-    } catch (error: any) {
-      console.error('Error fetching analysis:', {
-        code: error?.code,
-        message: error?.message,
-        details: error?.details,
-        stack: error?.stack
-      });
-      throw error;
+    if (!docSnap.exists()) {
+      console.error('Analysis not found');
+      throw new Error('Analysis not found');
     }
-  },
+
+    const data = docSnap.data();
+    console.log('Document data:', data);
+    
+    if (data.userId !== user.uid) {
+      console.error('User ID mismatch:', {
+        documentUserId: data.userId,
+        currentUserId: user.uid
+      });
+      throw new Error('Unauthorized access');
+    }
+
+    return {
+      id: docSnap.id,
+      ...data,
+      createdAt: data.createdAt.toDate()
+    } as Analysis;
+  }
 
   async deleteAnalysis(id: string): Promise<void> {
-    if (!auth.currentUser) {
-      throw new Error('User must be authenticated');
-    }
+    const user = auth.currentUser;
+    if (!user) throw new Error('User must be authenticated');
 
-    const docRef = doc(db, 'analyses', id);
+    const docRef = doc(db, this.COLLECTION, id);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
       throw new Error('Analysis not found');
     }
 
-    if (docSnap.data().userId !== auth.currentUser.uid) {
-      throw new Error('Unauthorized access');
+    const analysis = docSnap.data() as Analysis;
+    if (analysis.userId !== user.uid) {
+      throw new Error('Unauthorized access to analysis');
     }
 
     await deleteDoc(docRef);
-  },
+  }
 
-  async updateAnalysis(id: string, data: Partial<Analysis>): Promise<Analysis> {
-    if (!auth.currentUser) {
-      throw new Error('User must be authenticated');
-    }
+  async updateAnalysis(id: string, data: Partial<Analysis>): Promise<void> {
+    const user = auth.currentUser;
+    if (!user) throw new Error('User must be authenticated');
 
-    const docRef = doc(db, 'analyses', id);
+    const docRef = doc(db, this.COLLECTION, id);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
       throw new Error('Analysis not found');
     }
 
-    if (docSnap.data().userId !== auth.currentUser.uid) {
-      throw new Error('Unauthorized access');
+    const analysis = docSnap.data() as Analysis;
+    if (analysis.userId !== user.uid) {
+      throw new Error('Unauthorized access to analysis');
     }
 
     await updateDoc(docRef, data);
-    
-    const updatedDoc = await getDoc(docRef);
-    return {
-      id: updatedDoc.id,
-      ...updatedDoc.data(),
-      createdAt: updatedDoc.data()?.createdAt.toDate(),
-    } as Analysis;
-  },
-}; 
+  }
+}
+
+export const analysisService = new AnalysisService(); 

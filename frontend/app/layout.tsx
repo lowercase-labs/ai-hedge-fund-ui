@@ -1,25 +1,40 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { ThemeProvider } from '../components/ThemeProvider';
-import AuthLayout from '../components/AuthLayout';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'AI Hedge Fund UI',
-  description: 'AI-powered financial analysis and trading recommendations',
-};
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import AuthLayout from '@/components/AuthLayout';
+import { ThemeProvider } from '@/components/ThemeProvider';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Don't apply AuthLayout to the index page or login page
+  const isPublicRoute = pathname === '/' || pathname === '/login';
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <html lang="en" className="light">
-      <ThemeProvider>
-        <AuthLayout>
-          {children}
-        </AuthLayout>
-      </ThemeProvider>
+      <body className={`${inter.className} overflow-y-auto`}>
+        <ThemeProvider>
+          {isPublicRoute ? children : <AuthLayout>{children}</AuthLayout>}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

@@ -7,6 +7,7 @@ import { authService } from '../services/auth/auth.service';
 import ThemeToggle from './ThemeToggle';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { UserCredits } from './UserCredits';
 
 export default function AuthLayout({
   children,
@@ -19,7 +20,7 @@ export default function AuthLayout({
 
   useEffect(() => {
     if (user) {
-      router.push('/');
+      router.push('/home');
     }
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
@@ -51,7 +52,7 @@ export default function AuthLayout({
             {user && (
               <>
                 <Link
-                  href="/"
+                  href="/home"
                   className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white"
                 >
                   Dashboard
@@ -71,6 +72,7 @@ export default function AuthLayout({
               <>
                 {user ? (
                   <div className="flex items-center space-x-4">
+                    <UserCredits />
                     <span className="text-sm text-slate-700 dark:text-gray-300">
                       {user.email}
                     </span>

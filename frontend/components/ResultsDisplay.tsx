@@ -65,6 +65,14 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
 
       const savedAnalysis = await analysisService.createAnalysis(analysisData);
       console.log('Analysis saved successfully:', savedAnalysis);
+      
+      // Refresh credits after successful save
+      // @ts-ignore - Accessing global refresh function
+      if (window.refreshCredits) {
+        // @ts-ignore
+        window.refreshCredits();
+      }
+      
       alert('Analysis saved successfully!');
     } catch (error) {
       console.error('Error saving analysis:', error);

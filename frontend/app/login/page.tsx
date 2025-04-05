@@ -17,7 +17,7 @@ export default function LoginPage() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        router.push('/');
+        router.push('/home');
       }
     });
 
@@ -39,7 +39,7 @@ export default function LoginPage() {
       } else {
         await authService.signUpWithEmail(email, password);
       }
-      router.push('/');
+      router.push('/home');
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -52,7 +52,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await authService.signInWithGoogle();
-      router.push('/');
+      router.push('/home');
     } catch (error: any) {
       setError(error.message);
     } finally {

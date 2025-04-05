@@ -7,6 +7,7 @@ import type { HedgeFundResponse } from '@/types/api';
 import AnalystSelect from './AnalystSelect';
 import ModelSelect from './ModelSelect';
 import ResultsDisplay from './ResultsDisplay';
+import { userService } from '@/services/user/user.service';
 
 const HedgeFundForm: React.FC = () => {
   // Form state
@@ -109,6 +110,9 @@ const HedgeFundForm: React.FC = () => {
         addTicker(tickerInput);
       }
       
+      // Deduct credits before running the analysis
+      await userService.deductCredits(1);
+      
       // Create initial portfolio
       const portfolio = createInitialPortfolio(tickerList);
       
@@ -125,6 +129,13 @@ const HedgeFundForm: React.FC = () => {
       });
       
       setResults(response);
+      
+      // Refresh credits display
+      // @ts-ignore - Accessing global refresh function
+      if (window.refreshCredits) {
+        // @ts-ignore
+        window.refreshCredits();
+      }
     } catch (err) {
       console.error('Error running analysis:', err);
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
