@@ -8,7 +8,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      className="p-2 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
       {theme === 'light' ? (

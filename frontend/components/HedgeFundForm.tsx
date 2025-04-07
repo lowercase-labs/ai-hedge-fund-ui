@@ -167,13 +167,13 @@ const HedgeFundForm: React.FC = () => {
                       {tickerList.map(ticker => (
                         <div 
                           key={ticker} 
-                          className="flex items-center bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2.5 py-1 rounded-full text-sm font-medium shadow-sm transition-colors hover:bg-blue-200 dark:hover:bg-blue-800"
+                          className="flex items-center bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2.5 py-1 rounded-full text-sm font-medium shadow-sm transition-colors hover:bg-green-200 dark:hover:bg-green-800"
                         >
                           <span>{ticker}</span>
                           <button 
                             type="button"
                             onClick={() => removeTicker(ticker)}
-                            className="ml-1.5 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100 focus:outline-none rounded-full p-0.5 hover:bg-blue-200 dark:hover:bg-blue-700 transition-colors"
+                            className="ml-1.5 text-green-600 dark:text-green-300 hover:text-green-800 dark:hover:text-green-100 focus:outline-none rounded-full p-0.5 hover:bg-green-200 dark:hover:bg-green-700 transition-colors"
                             aria-label={`Remove ${ticker}`}
                           >
                             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -266,7 +266,7 @@ const HedgeFundForm: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="perplexity-button w-full py-3 flex justify-center items-center dark:bg-blue-600 dark:hover:bg-blue-700"
+              className="perplexity-button w-full py-3 flex justify-center items-center dark:bg-green-600 dark:hover:bg-green-700"
             >
               {loading ? (
                 <>
@@ -292,7 +292,7 @@ const HedgeFundForm: React.FC = () => {
         <div className="lg:col-span-8">
           {!results && !loading ? (
             <div className="perplexity-card h-full flex flex-col justify-center items-center py-12 dark:bg-gray-800 dark:border-gray-700">
-              <svg className="w-16 h-16 text-blue-500 mb-6 opacity-50" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-16 h-16 text-green-500 mb-6 opacity-50" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2L1 21h22L12 2zm0 4.6L19.1 19H4.9L12 6.6z" />
               </svg>
               <h3 className="text-lg font-medium text-slate-700 mb-2 dark:text-gray-300">Ready to Analyze</h3>

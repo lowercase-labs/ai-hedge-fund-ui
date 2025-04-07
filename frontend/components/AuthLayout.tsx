@@ -43,7 +43,7 @@ export default function AuthLayout({
       <header className="bg-white dark:bg-gray-800 border-b border-slate-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <svg className="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="w-8 h-8 text-green-500" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2L1 21h22L12 2zm0 4.6L19.1 19H4.9L12 6.6z" />
             </svg>
             <h1 className="text-xl font-semibold text-slate-800 dark:text-white">AI Hedge Fund UI</h1>
@@ -78,7 +78,7 @@ export default function AuthLayout({
                     </span>
                     <button
                       onClick={handleSignOut}
-                      className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      className="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                     >
                       Sign Out
                     </button>
@@ -87,7 +87,7 @@ export default function AuthLayout({
                   <div className="flex items-center space-x-2">
                     <a
                       href="/login"
-                      className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      className="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                     >
                       Sign In
                     </a>
@@ -105,7 +105,7 @@ export default function AuthLayout({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <svg className="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2L1 21h22L12 2zm0 4.6L19.1 19H4.9L12 6.6z" />
               </svg>
               <span className="text-sm font-medium text-slate-700 dark:text-gray-300">AI Hedge Fund UI</span>

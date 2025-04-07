@@ -43,7 +43,7 @@ export function AnalysisCard({ analysis, onDelete }: AnalysisCardProps) {
       <div className="flex justify-between items-center mt-4">
         <Link
           href={`/analysis/${analysis.id}`}
-          className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+          className="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300"
         >
           View Details
         </Link>

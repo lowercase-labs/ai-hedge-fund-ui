@@ -57,7 +57,7 @@ html, body {
   }
   
   .btn-primary {
-    @apply bg-blue-500 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-300 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-500;
+    @apply bg-green-500 text-white hover:bg-green-600 focus:ring-2 focus:ring-green-300 focus:outline-none dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-500;
   }
   
   .btn-secondary {
@@ -69,7 +69,7 @@ html, body {
   }
   
   .input {
-    @apply w-full p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500;
+    @apply w-full p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-300 focus:border-green-500 outline-none text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-green-500;
   }
   
   .label {
@@ -101,7 +101,7 @@ html, body {
   }
   
   .badge-blue {
-    @apply bg-blue-50 text-blue-700 dark:bg-blue-900 dark:bg-opacity-30 dark:text-blue-400;
+    @apply bg-green-50 text-green-700 dark:bg-green-900 dark:bg-opacity-30 dark:text-green-400;
   }
   
   /* Perplexity-specific components */
@@ -126,7 +126,7 @@ html, body {
   }
   
   .perplexity-card {
-    @apply bg-white border border-slate-200 rounded-xl p-4 sm:p-5 lg:p-6 mb-4 hover:border-blue-200 transition-colors dark:bg-gray-800 dark:border-gray-700 dark:hover:border-blue-700;
+    @apply bg-white border border-slate-200 rounded-xl p-4 sm:p-5 lg:p-6 mb-4 hover:border-green-200 transition-colors dark:bg-gray-800 dark:border-gray-700 dark:hover:border-green-700;
   }
   
   .perplexity-tabs {
@@ -138,7 +138,7 @@ html, body {
   }
   
   .perplexity-tab-active {
-    @apply text-blue-600 border-b-2 border-blue-500 font-medium dark:text-blue-400 dark:border-blue-500;
+    @apply text-green-600 border-b-2 border-green-500 font-medium dark:text-green-400 dark:border-green-500;
   }
   
   .perplexity-input-group {
@@ -146,7 +146,7 @@ html, body {
   }
   
   .perplexity-button {
-    @apply bg-blue-500 hover:bg-blue-600 text-white rounded-full px-5 py-2.5 text-sm font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-500 dark:focus:ring-offset-gray-900;
+    @apply bg-green-500 hover:bg-green-600 text-white rounded-full px-5 py-2.5 text-sm font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-500 dark:focus:ring-offset-gray-900;
   }
   
   .perplexity-results {
@@ -154,7 +154,7 @@ html, body {
   }
   
   .perplexity-result-card {
-    @apply bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-200 transition-colors dark:bg-gray-800 dark:border-gray-700 dark:hover:border-blue-700;
+    @apply bg-white rounded-xl border border-slate-200 p-5 hover:border-green-200 transition-colors dark:bg-gray-800 dark:border-gray-700 dark:hover:border-green-700;
   }
   
   .perplexity-divider {
@@ -196,6 +196,6 @@ html, body {
   }
   
   .perplexity-table tbody tr:hover {
-    @apply bg-blue-50/70 dark:bg-blue-900/20 transition-colors;
+    @apply bg-green-50/70 dark:bg-green-900/20 transition-colors;
   }
 }

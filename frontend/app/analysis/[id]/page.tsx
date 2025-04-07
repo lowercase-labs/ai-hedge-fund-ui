@@ -81,7 +81,7 @@ export default function AnalysisDetailPage() {
             <span className="font-medium dark:text-gray-300 block mb-2">Tickers:</span>
             <div className="flex flex-wrap gap-2">
               {data.tickers.map((ticker: string) => (
-                <span key={ticker} className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+                <span key={ticker} className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm">
                   {ticker}
                 </span>
               ))}
@@ -101,7 +101,7 @@ export default function AnalysisDetailPage() {
             const actionColor = 
               decision.action === 'BUY' ? 'text-green-600 dark:text-green-400' :
               decision.action === 'SELL' ? 'text-red-600 dark:text-red-400' :
-              'text-blue-600 dark:text-blue-400';
+              'text-green-600 dark:text-green-400';
             
             return (
               <div key={ticker} className="border-b border-gray-200 dark:border-gray-700 pb-4">
@@ -144,7 +144,7 @@ export default function AnalysisDetailPage() {
                     <span className={`text-sm ${
                       signal === 'BUY' ? 'text-green-600 dark:text-green-400' :
                       signal === 'SELL' ? 'text-red-600 dark:text-red-400' :
-                      'text-blue-600 dark:text-blue-400'
+                      'text-green-600 dark:text-green-400'
                     }`}>
                       {signal}
                     </span>
@@ -176,7 +176,7 @@ export default function AnalysisDetailPage() {
     <ProtectedRoute>
       {loading ? (
         <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
         </div>
       ) : error || !analysis ? (
         <div className="flex items-center justify-center min-h-screen">
@@ -187,7 +187,7 @@ export default function AnalysisDetailPage() {
           <div className="mb-8">
             <button
               onClick={() => window.history.back()}
-              className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 mb-4"
+              className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 mb-4"
             >
               ← Back to Analyses
             </button>

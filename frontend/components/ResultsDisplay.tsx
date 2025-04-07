@@ -88,7 +88,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
     return (
       <div className="perplexity-card animate-pulse space-y-4">
         <div className="flex items-center space-x-2 mb-4">
-          <div className="h-4 w-4 bg-blue-200 dark:bg-blue-700 rounded-full"></div>
+          <div className="h-4 w-4 bg-green-200 dark:bg-green-700 rounded-full"></div>
           <div className="h-5 bg-slate-200 dark:bg-gray-700 rounded w-1/3"></div>
         </div>
         <div className="space-y-3">
@@ -111,7 +111,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
     switch(action.toUpperCase()) {
       case 'BUY': return 'text-green-600 dark:text-green-400';
       case 'SELL': return 'text-red-600 dark:text-red-400';
-      case 'HOLD': return 'text-blue-600 dark:text-blue-400';
+      case 'HOLD': return 'text-green-600 dark:text-green-400';
       default: return 'text-gray-600 dark:text-gray-400';
     }
   };
@@ -141,7 +141,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
     <div className="space-y-6">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center space-x-2">
-          <svg className="h-5 w-5 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="10" />
             <path d="M8 14s1.5 2 4 2 4-2 4-2" />
             <line x1="9" y1="9" x2="9.01" y2="9" />
@@ -151,7 +151,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
         </div>
         <button
           onClick={handleSaveAnalysis}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors flex items-center space-x-2"
+          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors flex items-center space-x-2"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
@@ -173,7 +173,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
       {/* Final Decision Summary */}
       <div className="mt-4">
         <div className="flex items-center mb-4">
-          <svg className="h-5 w-5 text-blue-500 dark:text-blue-400 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="h-5 w-5 text-green-500 dark:text-green-400 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
           </svg>
           <h3 className="text-lg font-bold text-slate-800 dark:text-white">Trading Recommendations</h3>
@@ -214,12 +214,12 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                 textColorDark = 'dark:text-red-400';
                 iconPath = 'M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z';
               } else if (action.toUpperCase() === 'HOLD') {
-                bgColor = 'bg-blue-50';
-                bgColorDark = 'dark:bg-blue-900/20';
-                borderColor = 'border-blue-200';
-                borderColorDark = 'dark:border-blue-800/30';
-                textColor = 'text-blue-700';
-                textColorDark = 'dark:text-blue-400';
+                bgColor = 'bg-green-50';
+                bgColorDark = 'dark:bg-green-900/20';
+                borderColor = 'border-green-200';
+                borderColorDark = 'dark:border-green-800/30';
+                textColor = 'text-green-700';
+                textColorDark = 'dark:text-green-400';
                 iconPath = 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z';
               } else {
                 bgColor = 'bg-slate-50';
@@ -292,7 +292,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700">
             {results.decisions ? (
               <div className="text-center">
-                <svg className="mx-auto h-10 w-10 text-blue-500 dark:text-blue-400 mb-3 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg className="mx-auto h-10 w-10 text-green-500 dark:text-green-400 mb-3 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M3 3h18v18H3zM8 12h8"/>
                 </svg>
                 <h4 className="text-lg font-medium text-slate-800 dark:text-white mb-2">Hold Recommendation</h4>
@@ -354,7 +354,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
         <div className="perplexity-card">
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center">
-              <svg className="h-5 w-5 text-blue-500 dark:text-blue-400 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="h-5 w-5 text-green-500 dark:text-green-400 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
@@ -366,7 +366,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                 <span>Buy</span>
               </div>
               <div className="flex items-center">
-                <div className="w-2 h-2 rounded-full bg-blue-500 mr-1.5"></div>
+                <div className="w-2 h-2 rounded-full bg-green-500 mr-1.5"></div>
                 <span>Hold</span>
               </div>
               <div className="flex items-center">
@@ -431,7 +431,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                     <div key={ticker} className={`bg-white dark:bg-gray-800 rounded-xl border border-slate-200 dark:border-gray-700 overflow-hidden shadow-sm ${index > 0 ? 'mt-6' : ''}`}>
                       {/* Ticker header */}
                       <div className="bg-slate-50 dark:bg-gray-800/80 border-b border-slate-200 dark:border-gray-700 px-4 py-3 flex items-center">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3 text-blue-600 dark:text-blue-400 font-bold text-lg">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mr-3 text-green-600 dark:text-green-400 font-bold text-lg">
                           {ticker.charAt(0)}
                         </div>
                         <h4 className="text-xl font-bold text-slate-700 dark:text-gray-200">{ticker}</h4>
@@ -483,8 +483,8 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                                 signalBgClass = 'bg-red-100 dark:bg-red-900/30';
                                 signalTextClass = 'text-red-800 dark:text-red-400';
                               } else if (normalizedSignal === 'HOLD' || normalizedSignal === 'NEUTRAL') {
-                                signalBgClass = 'bg-blue-100 dark:bg-blue-900/30';
-                                signalTextClass = 'text-blue-800 dark:text-blue-400';
+                                signalBgClass = 'bg-green-100 dark:bg-green-900/30';
+                                signalTextClass = 'text-green-800 dark:text-green-400';
                               } else {
                                 signalBgClass = 'bg-gray-100 dark:bg-gray-900/30';
                                 signalTextClass = 'text-gray-800 dark:text-gray-400';
@@ -497,7 +497,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                               } else if (normalizedSignal === 'SELL' || normalizedSignal === 'STRONG SELL' || normalizedSignal === 'BEARISH') {
                                 confidenceBarColor = 'bg-red-500 dark:bg-red-400';
                               } else {
-                                confidenceBarColor = 'bg-blue-500 dark:bg-blue-400';
+                                confidenceBarColor = 'bg-green-500 dark:bg-green-400';
                               }
                               
                               return (
@@ -623,9 +623,9 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                           };
                         } else {
                           return {
-                            bg: 'bg-blue-50 dark:bg-blue-900/20',
-                            border: 'border-blue-200 dark:border-blue-800/30',
-                            text: 'text-blue-700 dark:text-blue-400',
+                            bg: 'bg-green-50 dark:bg-green-900/20',
+                            border: 'border-green-200 dark:border-green-800/30',
+                            text: 'text-green-700 dark:text-green-400',
                             icon: (
                               <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clipRule="evenodd" />
@@ -728,7 +728,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
             </div>
             <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
               <button
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
                 onClick={() => setSelectedAnalyst(null)}
               >
                 Close

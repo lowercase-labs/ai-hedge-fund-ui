@@ -116,7 +116,7 @@ const AnalystSelect: React.FC<AnalystSelectProps> = ({ selectedAnalysts, onChang
             id="select-all-analysts"
             checked={selectedAnalysts.length === analysts.length}
             onChange={(e) => handleToggleAll(e.target.checked)}
-            className="h-4 w-4 text-blue-500 focus:ring-blue-300 border-slate-300 dark:border-gray-600 rounded dark:bg-gray-700"
+            className="h-4 w-4 text-green-500 focus:ring-green-300 border-slate-300 dark:border-gray-600 rounded dark:bg-gray-700"
           />
           <label htmlFor="select-all-analysts" className="ml-2 text-xs text-slate-600 dark:text-gray-400">Select All</label>
         </div>
@@ -147,7 +147,7 @@ const AnalystSelect: React.FC<AnalystSelectProps> = ({ selectedAnalysts, onChang
                 break;
               case 'technicals':
                 icon = 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6';
-                iconColor = 'text-blue-500 dark:text-blue-400';
+                iconColor = 'text-green-500 dark:text-green-400';
                 description = 'Chart pattern analysis';
                 break;
               case 'valuation':
@@ -183,7 +183,7 @@ const AnalystSelect: React.FC<AnalystSelectProps> = ({ selectedAnalysts, onChang
                 key={analyst.value} 
                 className={`p-3 rounded-xl border-2 w-full ${
                   isSelected
-                    ? 'border-blue-300 bg-blue-50 dark:border-blue-600 dark:bg-blue-900/30' 
+                    ? 'border-green-300 bg-green-50 dark:border-green-600 dark:bg-green-900/30' 
                     : 'border-slate-200 hover:border-slate-300 bg-white dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800'
                 } transition-colors cursor-pointer shadow-sm hover:shadow flex items-center`}
                 onClick={() => handleToggleAnalyst(analyst.value, !isSelected)}
@@ -196,7 +196,7 @@ const AnalystSelect: React.FC<AnalystSelectProps> = ({ selectedAnalysts, onChang
                       {analyst.name}
                     </h4>
                     {isSelected && (
-                      <svg className="h-4 w-4 text-blue-500 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                      <svg className="h-4 w-4 text-green-500 dark:text-green-400" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
                     )}
