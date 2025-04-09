@@ -416,7 +416,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, loading, showR
                   // Gather all signals from different analysts for this ticker
                   const analystSignals: Record<string, any> = {};
                   
-                  Object.entries(results.analyst_signals).forEach(([analystName, analystData]) => {
+                  Object.entries(results.analyst_signals!).forEach(([analystName, analystData]) => {
                     if (analystData && typeof analystData === 'object' && analystData[ticker]) {
                       analystSignals[analystName] = analystData[ticker];
                     }

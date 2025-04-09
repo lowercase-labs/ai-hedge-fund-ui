@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
-import { userService, UserCredits } from '@/services/user/user.service';
+import { userService } from '@/services/user/user.service';
+import type { UserCredits } from '@/services/user/user.service';
 
 export function UserCredits() {
   const [credits, setCredits] = useState<UserCredits | null>(null);
