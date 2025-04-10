@@ -18,7 +18,7 @@ jobs:
             - id: auth
               uses: 'google-github-actions/auth@v2'
               with:
-                service_account: 'quant-ai-agent@appspot.gserviceaccount.com'
+                service_account: 'github-actions-account@quant-ai-agent.iam.gserviceaccount.com'
                 workload_identity_provider: 'projects/127312197691/locations/global/workloadIdentityPools/github/providers/my-repo' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
 
             - id: deploy
