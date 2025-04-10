@@ -3,3 +3,5 @@ entrypoint: uvicorn src.api:app --host 0.0.0.0 --port $PORT
 instance_class: F4
 automatic_scaling:
     max_instances: 10
+includes:
+  - env_variables.yaml

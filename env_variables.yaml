@@ -1,0 +1,5 @@
+env_variables:
+    OPENAI_API_KEY: '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'
+    GROQ_API_KEY: 'your-groq-api-key'
+    ANTHROPIC_API_KEY: 'your-anthropic-api-key'
+    FINANCIAL_DATASETS_API_KEY: '0673f176-adf8-4b18-9129-8bc6835f04da'
