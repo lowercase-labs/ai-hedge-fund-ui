@@ -1,0 +1,62 @@
+# Development and testing files
+.git
+.gitignore
+.github
+.poetry
+.pytest_cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build and distribution files
+dist/
+build/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Documentation
+docs/
+*.md
+LICENSE
+API_USAGE.md
+
+# Example and test files
+nextjs-example.js
+tests/
+test_*.py
+*_test.py
+
+# Development scripts
+setup_dev.py
+run_api.py
+
+# Poetry files (if not needed in production)
+poetry.lock
+pyproject.toml
+
+# Pre-commit hooks
+.pre-commit-config.yaml
+
+# Frontend development files (if not needed in production)
+frontend/node_modules/
+frontend/.next/
+frontend/build/
+frontend/dist/
+frontend/coverage/
+frontend/.env*
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/**
